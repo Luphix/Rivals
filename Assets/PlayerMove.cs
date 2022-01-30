@@ -16,8 +16,8 @@ public class PlayerMove : MonoBehaviour
     private Vector3 playerVelocity;
     public bool groundedPlayer;
     public float playerSpeed = 2.0f;
-    private float jumpHeight = 1.0f;
-    private float gravityValue = -20f;
+    public float jumpHeight = 1.0f;
+    public float gravityValue = -20f;
     private Vector3 move;
     private bool jumping = false;
 
@@ -40,18 +40,20 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (camFollow)
-        {
-            cam.transform.position = Vector3.Slerp(cam.transform.position, gameObject.transform.position + camOffset, 0.2f);
-        }
-        else
-        {
-            cam.transform.position = gameObject.transform.position + camOffset;
-        }
+       
         
 
-        if(fase == 1)
+        if(fase == 1 || fase == 4)
         {
+            if (camFollow)
+            {
+                cam.transform.position = Vector3.Slerp(cam.transform.position, gameObject.transform.position + camOffset, 0.2f);
+            }
+            else
+            {
+                cam.transform.position = gameObject.transform.position + camOffset;
+            }
+
             groundedPlayer = controller.isGrounded;
             if (groundedPlayer)
             {
@@ -100,6 +102,15 @@ public class PlayerMove : MonoBehaviour
 
         else if(fase == 2)
         {
+
+            if (camFollow)
+            {
+                cam.transform.position = Vector3.Slerp(cam.transform.position, gameObject.transform.position + camOffset, 0.1f);
+            }
+            else
+            {
+                cam.transform.position = gameObject.transform.position + camOffset;
+            }
             anim.SetBool("Walking", true);
 
             move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0.5f);
@@ -107,6 +118,26 @@ public class PlayerMove : MonoBehaviour
             controller.Move(move * Time.deltaTime * playerSpeed);
         }
 
+        else if(fase == 3)
+        {
+            if (camFollow)
+            {
+                cam.transform.position = Vector3.Slerp(cam.transform.position, new Vector3((gameObject.transform.position + camOffset).x, 0, (gameObject.transform.position + camOffset).z), 0.1f);
+            }
+            else
+            {
+                cam.transform.position = new Vector3((gameObject.transform.position + camOffset).x, 0, (gameObject.transform.position + camOffset).z);
+            }
+            anim.SetBool("Walking", true);
+
+            move = new Vector3(0 , 0, 0);
+
+            controller.Move(move * Time.deltaTime * playerSpeed);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            }
+        }
 
         if (move != Vector3.zero)
         {
