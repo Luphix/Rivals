@@ -9,9 +9,11 @@ public class GameControl : MonoBehaviour
 
     public static List<GameObject> fireballList = new List<GameObject>();
 
+    public int fase = 1;
     public Transform[] spawns;
     public Transform[] spawnsLava;
     public GameObject lava;
+    public GameObject snowball;
 
     public Text P1count;
     public Text P2count;
@@ -25,16 +27,34 @@ public class GameControl : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1;
-        timecount = 60;
-        StartCoroutine("tempo");
-        StartCoroutine("lavaTemp");
-        for (int i = 0; i < spawns.Length; i++)
+        if(fase == 1)
         {
-            GameObject fb;
-            fb = Instantiate(fireball, spawns[i].position, Quaternion.identity);
-            fireballList.Add(fb);
+            Time.timeScale = 1;
+            timecount = 60;
+            StartCoroutine("tempo");
+            StartCoroutine("lavaTemp");
+            for (int i = 0; i < spawns.Length; i++)
+            {
+                GameObject fb;
+                fb = Instantiate(fireball, spawns[i].position, Quaternion.identity);
+                fireballList.Add(fb);
+            }
         }
+        else if(fase == 2)
+        {
+            Time.timeScale = 1;
+            timecount = 60;
+            StartCoroutine("tempo");
+            StartCoroutine("snowTemp");
+        }
+        
+    }
+
+    IEnumerator snowTemp()
+    {
+        yield return new WaitForSeconds(Random.Range(0.1f, 1f) * 60 * Time.deltaTime);
+        Instantiate(snowball, new Vector3(Random.Range(-13.1f,16.1f),143,97), Quaternion.identity);
+        StartCoroutine("snowTemp");
     }
 
     IEnumerator lavaTemp()

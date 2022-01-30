@@ -20,17 +20,38 @@ public class Rival : MonoBehaviour
     public GameObject cam;
     public Vector3 camOffset;
 
+    public bool camFollow = true;
 
+
+    public IEnumerator ShakeCam(float mag)
+    {
+        camFollow = false;
+        Vector3 ofset = camOffset;
+        for (float i = mag; i > 0; i -= (mag / 5))
+        {
+            cam.transform.position = new Vector3((gameObject.transform.position + camOffset).x - mag, (gameObject.transform.position + camOffset).y, (gameObject.transform.position + camOffset).z);
+            yield return new WaitForSeconds(0.02f * 60 * Time.deltaTime);
+            cam.transform.position = new Vector3((gameObject.transform.position + camOffset).x + mag, (gameObject.transform.position + camOffset).y, (gameObject.transform.position + camOffset).z);
+            yield return new WaitForSeconds(0.02f * 60 * Time.deltaTime);
+        }
+        camFollow = true;
+
+    }
 
     void Update()
     {
-        cam.transform.position = Vector3.Slerp(cam.transform.position, gameObject.transform.position + camOffset, 0.2f);
+        if (camFollow)
+        {
+            cam.transform.position = Vector3.Slerp(cam.transform.position, gameObject.transform.position + camOffset, 0.2f);
+        }
+        else
+        {
+            cam.transform.position = gameObject.transform.position + camOffset;
+        }
 
         if (agent.velocity == vet)
         {
             anim.SetBool("Walking", false);
-
-
         }
 
         //Transição de animação (Parado -> Andando):
@@ -77,6 +98,7 @@ public class Rival : MonoBehaviour
         if(Col.gameObject.tag == "Lava")
         {
             fireballHold.SetActive(false);
+            StartCoroutine("ShakeCam", 0.1f);
         }
 
         if (Col.gameObject.tag == "Collectible")
