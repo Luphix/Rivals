@@ -5,11 +5,15 @@ using UnityEngine.AI;
 
 public class Rival : MonoBehaviour
 {
+
+    public GameObject[] SkillObj;
     public bool jump = true;
     public float dir = 0;
     public GameObject fireballHold;
     public GameObject vulc;
     private Vector3 vet = new Vector3(0, 0, 0);
+
+    public int skillChose;
 
     public int fase = 1;
 
@@ -35,6 +39,12 @@ public class Rival : MonoBehaviour
     private Vector3 move;
     private bool jumping = false;
 
+    void Shot()
+    {
+        GameObject sk;
+        sk = Instantiate(SkillObj[skillChose], transform.position, transform.rotation);
+        sk.GetComponent<SpellFireball>().player = 2;
+    }
 
     public IEnumerator ShakeCam(float mag)
     {
@@ -108,7 +118,7 @@ public class Rival : MonoBehaviour
             }
         }
 
-        else if(fase == 2)
+        else if(fase == 2 && !GameControl.P2End)
         {
             foreach (GameObject snowball in GameControl.snowballList)
             {
@@ -151,9 +161,6 @@ public class Rival : MonoBehaviour
                 
             }
 
-
-
-
             if (camFollow)
             {
                 cam.transform.position = Vector3.Slerp(cam.transform.position, gameObject.transform.position + camOffset, 0.1f);
@@ -181,8 +188,13 @@ public class Rival : MonoBehaviour
 
         }
 
-        else if (fase == 3)
+        else if (fase == 3 && !GameControl.P2End)
         {
+
+            if (transform.position.y < -6 || transform.position.y > 6)
+            {
+                GameControl.P2End = true;
+            }
             if (camFollow)
             {
                 cam.transform.position = Vector3.Slerp(cam.transform.position, new Vector3((gameObject.transform.position + camOffset).x, 0, (gameObject.transform.position + camOffset).z), 0.1f);
@@ -228,13 +240,36 @@ public class Rival : MonoBehaviour
             playerVelocity.y += gravityValue * Time.deltaTime;
             controller.Move(playerVelocity * Time.deltaTime);
         }
+        else if (fase == 4)
+        {
+            if (camFollow)
+            {
+                cam.transform.position = Vector3.Slerp(cam.transform.position, gameObject.transform.position + camOffset, 0.2f);
+            }
+            else
+            {
+                cam.transform.position = gameObject.transform.position + camOffset;
+            }
+
+        }
 
     }
 
-        
+    void OnCollisionEnter(Collision Col)
+    {
+        if (Col.gameObject.tag == "End")
+        {
+            GameControl.P2End = true;
+        }
+    }
+
     void OnTriggerEnter(Collider Col)
     {
-        if(Col.gameObject.tag == "Lava")
+        if (Col.gameObject.tag == "End")
+        {
+            GameControl.P2End = true;
+        }
+        if (Col.gameObject.tag == "Lava")
         {
             fireballHold.SetActive(false);
             StartCoroutine("ShakeCam", 0.1f);

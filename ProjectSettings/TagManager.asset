@@ -9,6 +9,7 @@ TagManager:
   - Lava
   - wall
   - Inv Ground
+  - End
   layers:
   - Default
   - TransparentFX

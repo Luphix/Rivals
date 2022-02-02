@@ -4821,6 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9043661357420564745}
+  - component: {fileID: -4442071969956434901}
   m_Layer: 0
   m_Name: Pre Jato Lava
   m_TagString: Untagged
@@ -4846,6 +4847,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4442071969956434901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9043661357420564758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10507ab7d332c7b488818719af2cfdc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 9043661357474785513}
+  inst: {fileID: 1246388630373939735, guid: fd3ff7b98fa74594d92667e94f6f7779, type: 3}
 --- !u!1 &9043661357474785524
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DestroyEff : MonoBehaviour
 {
     public ParticleSystem ps;
-
+    public GameObject inst;
 
     void Update()
     {
@@ -13,6 +13,10 @@ public class DestroyEff : MonoBehaviour
         {
             if (!ps.IsAlive())
             {
+                if(inst != null)
+                {
+                    Instantiate(inst, transform.position, Quaternion.identity);
+                }
                 Destroy(gameObject);
             }
         }
