@@ -66,7 +66,7 @@ public class PlayerMove : MonoBehaviour
             GameObject sk;
             sk = Instantiate(SkillObj[skillChose], new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
             sk.transform.Translate(Vector3.forward * 30);
-            sk.GetComponent<SpellIce>().player = 1;
+            //sk.GetComponent<SpellIce>().player = 1;
         }
 
     }

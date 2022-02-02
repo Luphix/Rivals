@@ -9701,6 +9701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: 0
   speed: 100
+  fire: {fileID: 8870773982442765553, guid: cb4b22bfe54a19b43bb62b19e33a21e4, type: 3}
   burst: {fileID: 6940153402075993607, guid: 699b429e3b668a5488faccc3677a7e82, type: 3}
 --- !u!54 &137572976228543997
 Rigidbody:

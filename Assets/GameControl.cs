@@ -92,7 +92,7 @@ public class GameControl : MonoBehaviour
 
     IEnumerator snowTemp()
     {
-        yield return new WaitForSeconds(Random.Range(0.1f, 1f) * 60 * Time.deltaTime);
+        yield return new WaitForSeconds(1 * 60 * Time.deltaTime);
         GameObject fb;
         fb = Instantiate(snowball, new Vector3(Random.Range(-13.1f,16.1f),135,97), Quaternion.identity);
         snowballList.Add(fb);

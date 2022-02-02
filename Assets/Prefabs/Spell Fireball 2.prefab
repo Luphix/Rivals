@@ -9712,6 +9712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: 0
   speed: 100
+  fire: {fileID: 8870773982442765553, guid: cb4b22bfe54a19b43bb62b19e33a21e4, type: 3}
   burst: {fileID: 8440928559552229407, guid: c9c001d634e41214a94cd1f0544815a2, type: 3}
 --- !u!54 &7012306434141133215
 Rigidbody:

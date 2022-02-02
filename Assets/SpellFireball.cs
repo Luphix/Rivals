@@ -6,7 +6,7 @@ public class SpellFireball : MonoBehaviour
 {
     public int player;
     public float speed = 100;
-
+    public GameObject fire;
     public GameObject burst;
     void Start()
     {
@@ -67,6 +67,7 @@ public class SpellFireball : MonoBehaviour
         if (Col.gameObject.tag == "wall")
         {
             Instantiate(burst, transform.position, Quaternion.identity);
+            Instantiate(fire, transform.position, Quaternion.identity);
             Destroy(gameObject);
 
         }
